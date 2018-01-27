@@ -1,0 +1,29 @@
+public class Solution {
+    public int Reverse(int x) {
+        if (x >= Int32.MaxValue || x <= Int32.MinValue)
+        {
+            return 0;
+        }
+        var num = Math.Abs(x);
+        var newNum = 0;
+        double result = 0;
+        while (num > 0)
+        {
+            var remain = num%10;
+            result = result * 10 + remain;
+            if (result >= Int32.MaxValue)
+            {
+                return 0;
+            }
+            else
+            {
+                newNum = newNum*10 + remain;
+                result = newNum;
+            }
+            num = num/10;
+        }
+
+        newNum = x > 0 ? newNum : -newNum;
+        return newNum;
+    }
+}
