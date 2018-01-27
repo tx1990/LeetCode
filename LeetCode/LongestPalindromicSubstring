@@ -1,0 +1,41 @@
+public class Solution {
+    public string LongestPalindrome(string s) {
+        var c = s.ToCharArray();
+        var list = new List<char> {'#'};
+        for (int i = 0; i < c.Length; i++)
+        {
+            list.Add(c[i]);
+            list.Add('#');
+        }
+
+        var longest = new List<int>(list.Count);
+        var id = 0;
+        var mx = 0;
+        for (int i = 0; i < list.Count; i++)
+        {
+            var count = mx <= i ? 0 : (mx - i > longest[2*id - i] ? longest[2*id - i] : mx - i);
+            while (i - 1 - count >= 0 && i + 1 + count < list.Count && list[i - 1 - count] == list[i + 1 + count])
+            {
+                count++;
+            }
+
+            if (i + count > mx)
+            {
+                id = i;
+                mx = i + count;
+            }
+            longest.Add(count);
+        }
+        id = 0;
+        mx = 0;
+        for (int i = 0; i < longest.Count; i++)
+        {
+            if (longest[i] > mx)
+            {
+                mx = longest[i];
+                id = i;
+            }
+        }
+        return s.Substring((id - mx)/2, mx);
+    }
+}
