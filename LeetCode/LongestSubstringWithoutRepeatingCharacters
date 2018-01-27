@@ -1,0 +1,32 @@
+public class Solution {
+    public int LengthOfLongestSubstring(string s) {
+        var c = s.ToCharArray();
+        var first = 0;
+        var length = 0;
+        var max = 0;
+        var dic = new Dictionary<char, int>();
+        for (int i = 0; i < c.Length; i++)
+        {
+            int index;
+            if (dic.TryGetValue(c[i], out index))
+            {
+                if (index >= first)
+                {
+                    first = index + 1;
+                    length = i - index;
+                }
+                else
+                {
+                    length += 1;
+                }
+            }
+            else
+            {
+                length += 1;
+            }
+            dic[c[i]] = i;
+            max = Math.Max(max, length);
+        }
+        return max;    
+    }
+}
