@@ -1,4 +1,4 @@
-public class TwoNum {
+public class TwoSum {
     public int[] TwoSum(int[] nums, int target) {
         var dic = new Dictionary<int, int>();
         for (int i = 0; i < nums.Length; i++)
