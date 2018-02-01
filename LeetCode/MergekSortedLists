@@ -1,0 +1,56 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     public int val;
+ *     public ListNode next;
+ *     public ListNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public ListNode MergeKLists(ListNode[] lists)
+    {
+        var n = lists.Length;
+        while (n > 1)
+        {
+            for (int i = 0, count = n/2; i < count; i++)
+            {
+                lists[i] = MergeTwoList(lists[i], lists[n - i - 1]);
+            }
+            n = n/2 + n%2;
+        }
+        return lists.Length > 0 ? lists[0] : null;
+    }
+
+    public ListNode MergeTwoList(ListNode l, ListNode r)
+    {
+        ListNode node = new ListNode(0);
+        var head = node;
+        while (l != null && r != null)
+        {
+            if (l.val < r.val)
+            {
+                node.next = l;
+                node = node.next;
+                l = l.next;
+            }
+            else
+            {
+                node.next = r;
+                node = node.next;
+                r = r.next;
+            }
+        }
+
+        if (l != null)
+        {
+            node.next = l;
+        }
+
+        if (r != null)
+        {
+            node.next = r;
+        }
+
+        return head.next;
+    }
+}
