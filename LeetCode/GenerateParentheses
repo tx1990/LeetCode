@@ -1,0 +1,28 @@
+public class Solution {
+    public IList<string> GenerateParenthesis(int n)
+    {
+        var list = new List<string>();
+        DfsGenerateParenthesis(list, "(", 1, n);
+
+        return list;
+    }
+
+    public void DfsGenerateParenthesis(List<string> list, string str, int i, int count)
+    {
+        if (str.Length == count * 2)
+        {
+            list.Add(str);
+        }
+        else
+        {
+            if (i < count)
+            {
+                DfsGenerateParenthesis(list, str + "(", i + 1, count);
+            }
+            if (str.Length < 2 * i)
+            {
+                DfsGenerateParenthesis(list, str + ")", i, count);
+            }
+        }
+    }
+}
