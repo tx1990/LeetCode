@@ -1,0 +1,50 @@
+public class Solution {
+    public int ThreeSumClosest(int[] nums, int target) {
+        Array.Sort(nums);
+        var result = int.MaxValue;
+        var min = int.MaxValue;
+        for (int i = 0; i < nums.Length; i++)
+        {
+            if (i > 0 && nums[i] == nums[i - 1])
+            {
+                continue;
+            }
+            var j = i + 1;
+            var k = nums.Length - 1;
+            while (j < k)
+            {
+                var value = nums[i] + nums[j] + nums[k];
+                if (value == target)
+                {
+                    return target;
+                }
+                else
+                {
+                    var newMin = Math.Abs(value - target);
+                    if (newMin < min)
+                    {
+                        result = value;
+                        min = newMin;
+                    }
+
+                    if (value > target)
+                    {
+                        do
+                        {
+                            k--;
+                        } while (j < k && nums[k] == nums[k + 1]);
+                    }
+                    else
+                    {
+                        do
+                        {
+                            j++;
+                        } while (j < k && nums[j] == nums[j - 1]);
+                    }
+                }
+            }
+        }
+
+        return result;
+    }
+}
