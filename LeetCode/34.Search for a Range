@@ -1,0 +1,51 @@
+public class Solution {
+    public int[] SearchRange(int[] nums, int target)
+    {
+        var result = new[] {-1, -1};
+        if (nums.Length > 0)
+        {
+            SearchRange2(nums, 0, nums.Length - 1, target, 0, result);
+        }
+        return result;
+    }
+
+    public void SearchRange2(int[] nums, int l, int r, int target, int flag, int[] result)
+    {
+        while (l <= r)
+        {
+            var middle = (l + r)/2;
+            if (nums[middle] == target)
+            {
+                if (flag == 0)
+                {
+                    result[0] = middle;
+                    result[1] = middle;
+                    SearchRange2(nums, l, middle - 1, target, -1, result);
+                    SearchRange2(nums, middle + 1, r, target, 1, result);
+                    return;
+                }
+
+                if (flag > 0)
+                {
+                    result[1] = middle;
+                    SearchRange2(nums, middle + 1, r, target, flag, result);
+                    return;
+                }
+                else
+                {
+                    result[0] = middle;
+                    SearchRange2(nums, l, middle - 1, target, flag, result);
+                    return;
+                }
+            }
+            else if (nums[middle] > target)
+            {
+                r = middle - 1;
+            }
+            else
+            {
+                l = middle + 1;
+            }
+        }
+    }
+}
