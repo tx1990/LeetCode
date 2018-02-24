@@ -1,0 +1,42 @@
+public class Solution {
+    public void NextPermutation(int[] nums) {
+        if (nums.Length < 2)
+        {
+            return;
+        }
+
+        var length = nums.Length;
+        var index = 0;
+        for (int i = length - 2; i >= 0; i--)
+        {
+            var max = nums[i + 1];
+            var value = nums[i];
+            if (value < max)
+            {
+                var j = i + 1;
+                for (; j + 1 < length; j++)
+                {
+                    if (value >= nums[j + 1])
+                    {
+                        break;
+                    }
+                }
+                nums[i] = nums[j];
+                nums[j] = value;
+                index = i + 1;
+                break;
+            }
+        }
+
+        var p = index;
+        var q = length - 1;
+        while (p < q)
+        {
+            var temp = nums[p];
+            nums[p] = nums[q];
+            nums[q] = temp;
+            p++;
+            q--;
+        }
+    }
+}
