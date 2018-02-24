@@ -1,0 +1,28 @@
+public class Solution {
+    public int LongestValidParentheses(string s) {
+        if (s.Length < 2)
+        {
+            return 0;
+        }
+
+        var max = 0;
+        var arrary = new int[s.Length];
+        for (int i = 1; i < s.Length; i++)
+        {
+            if (s[i] == ')')
+            {
+                var count = arrary[i - 1];
+                if (i - 1 - count >= 0 && s[i - 1 - count] == '(')
+                {
+                    arrary[i] = count + 2;
+                    if (i - arrary[i] > 0)
+                    {
+                        arrary[i] += arrary[i - arrary[i]];
+                    }
+                    max = Math.Max(max, arrary[i]);
+                }
+            }
+        }
+        return max;
+    }
+}
