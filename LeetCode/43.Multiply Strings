@@ -1,0 +1,36 @@
+public class Solution {
+    public string Multiply(string num1, string num2) {
+        var arrary = new int[num1.Length*num2.Length + 1];
+        for (int i = num2.Length - 1; i >= 0; i--)
+        {
+            var carry = 0;
+            var index = num2.Length - 1 - i;
+            for (int j = num1.Length - 1; j >= 0; j--, index++)
+            {
+                var num = (num1[j] - '0')*(num2[i] - '0') + arrary[index] + carry;
+                carry = num/10;
+                arrary[index] = num % 10;
+            }
+            arrary[index] = carry;
+        }
+
+        var builder = new StringBuilder();
+        var flag = true;
+        for (int i = arrary.Length - 1; i >= 0; i--)
+        {
+            if (!flag || arrary[i] != 0)
+            {
+                flag = false;
+                builder.Append(arrary[i]);
+            }
+        }
+        if (builder.Length == 0)
+        {
+            return "0";
+        }
+        else
+        {
+            return builder.ToString();
+        }
+    }
+}
