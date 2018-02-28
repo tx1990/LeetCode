@@ -1,0 +1,23 @@
+public class Solution {
+    public double MyPow(double x, int n)
+    {
+        return n < 0 ? 1/Pow2(x, -n) : Pow2(x, n);
+    }
+
+    public double Pow2(double x, int n)
+    {
+        if (n == 1) return x;
+        if (n == 0) return 1;
+
+        var v = Pow2(x, n/2);
+
+        if (n % 2 == 0)
+        {
+            return v*v;
+        }
+        else
+        {
+            return v*v*x;
+        }
+    }
+}
