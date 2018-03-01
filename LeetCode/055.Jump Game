@@ -1,0 +1,16 @@
+public class Solution {
+    public bool CanJump(int[] nums) {
+        var max = 0;
+        for (int i = 0; i < nums.Length - 1; i++)
+        {
+            if (max < i)
+            {
+                break;
+            }
+            var result = i + nums[i];
+            max = Math.Max(result, max);
+        }
+
+        return max >= nums.Length - 1;
+    }
+}
