@@ -1,0 +1,18 @@
+public class Solution {
+    public int UniquePaths(int m, int n)
+    {
+        var arrary = new int[n];
+        for (int i = 0; i < n; i++)
+        {
+            arrary[i] = 1;
+        }
+        for (int i = 1; i < m; i++)
+        {
+            for (int j = 1; j < n; j++)
+            {
+                arrary[j] = arrary[j - 1] + arrary[j];
+            }
+        }
+        return arrary[n - 1];
+    }
+}
