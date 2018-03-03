@@ -1,0 +1,34 @@
+public class Solution {
+    public int UniquePathsWithObstacles(int[,] obstacleGrid) {
+        var m = obstacleGrid.GetLength(0);
+        var n = obstacleGrid.GetLength(1);
+        var arrary = new int[n];
+        for (int i = 0; i < n; i++)
+        {
+            if (obstacleGrid[0, i] == 1)
+            {
+                break;
+            }
+            arrary[i] = 1;
+        }
+        for (int i = 1; i < m; i++)
+        {
+            if (obstacleGrid[i, 0] == 1)
+            {
+                arrary[0] = 0;
+            }
+            for (int j = 1; j < n; j++)
+            {
+                if (obstacleGrid[i, j] == 1)
+                {
+                    arrary[j] = 0;
+                }
+                else
+                {
+                    arrary[j] = arrary[j - 1] + arrary[j];
+                }
+            }
+        }
+        return arrary[n - 1];
+    }
+}
