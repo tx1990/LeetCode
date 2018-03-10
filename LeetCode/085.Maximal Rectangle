@@ -1,0 +1,48 @@
+public class Solution {
+    public int MaximalRectangle(char[,] matrix) {
+        var m = matrix.GetLength(0);
+        var n = matrix.GetLength(1);
+        var height = new int[n];
+        var left = new int[n];
+        var right = new int[n];
+        var max = 0;
+        for (int i = 0; i < n; i++)
+        {
+            right[i] = n;
+        }
+        for (int i = 0; i < m; i++)
+        {
+            var curLeft = 0;
+            var curRight = n;
+            for (int j = n - 1; j >= 0; j--)
+            {
+                if (matrix[i, j] == '1')
+                {
+                    right[j] = Math.Min(right[j], curRight);
+                }
+                else
+                {
+                    curRight = j;
+                    right[j] = n;
+                }
+            }
+            for (int j = 0; j < n; j++)
+            {
+                if (matrix[i, j] == '1')
+                {
+                    left[j] = Math.Max(left[j], curLeft);
+                    height[j] += 1;
+                }
+                else
+                {
+                    curLeft = j + 1;
+                    left[j] = 0;
+                    height[j] = 0;
+                }
+                max = Math.Max(max, (right[j] - left[j])*height[j]);
+            }
+        }
+
+        return max;
+    }
+}
