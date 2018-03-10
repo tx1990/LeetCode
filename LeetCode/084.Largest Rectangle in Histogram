@@ -1,0 +1,22 @@
+public class Solution {
+    public int LargestRectangleArea(int[] heights) {
+        var stack = new Stack<int>();
+        var i = 0;
+        var max = 0;
+        var list = new List<int>(heights);
+        list.Add(-1);
+        while (i < list.Count)
+        {
+            if (stack.Count == 0 || list[i] >= list[stack.Peek()])
+            {
+                stack.Push(i++);
+            }
+            else
+            {
+                var value = stack.Pop();
+                max = Math.Max(max, list[value]*(stack.Count == 0 ? i : i - stack.Peek() - 1));
+            }
+        }
+        return max;
+    }
+}
