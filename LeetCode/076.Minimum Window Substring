@@ -1,0 +1,50 @@
+public class Solution {
+    public string MinWindow(string s, string t) {
+        if (s.Length < t.Length)
+        {
+            return string.Empty;
+        }
+        
+        var src = new int[128];
+        for (int i = 0; i < t.Length; i++)
+        {
+            src[t[i]] += 1;
+        }
+
+        var start = 0;
+        var end = 0;
+        var min = int.MaxValue;
+        var length = t.Length;
+        for (int i = 0; i < s.Length; i++)
+        {
+            var c = s[i];
+            src[c] -= 1;
+            if (src[c] > -1)
+            {
+                length--;
+                if (length == 0)
+                {
+                    while (true)
+                    {
+                        c = s[start++];
+                        src[c] += 1;
+                        if (src[c] > 0)
+                        {
+                            length++;
+                            break;
+                        }
+                    }
+
+                    var result = i - start + 2;
+                    if (result < min)
+                    {
+                        min = result;
+                        end = i;
+                    }
+                }
+            }
+        }
+
+        return min == int.MaxValue ? string.Empty : s.Substring(end + 1 - min, min);
+    }
+}
