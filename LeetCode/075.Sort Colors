@@ -1,0 +1,29 @@
+public class Solution {
+    public void SortColors(int[] nums) {
+        var head = 0;
+        var end = nums.Length - 1;
+        var point = 0;
+        while (head <= end)
+        {
+            if (nums[head] == 2)
+            {
+                var temp = nums[head];
+                nums[head] = nums[end];
+                nums[end] = temp;
+                end--;
+            }
+            else if (nums[head] == 0)
+            {
+                var temp = nums[point];
+                nums[point] = nums[head];
+                nums[head] = temp;
+                point++;
+                head++;
+            }
+            else
+            {
+                head++;
+            }
+        }
+    }
+}
