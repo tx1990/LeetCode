@@ -1,0 +1,14 @@
+public class Solution {
+    public int NumTrees(int n) {
+        var arrary = new int[n + 1];
+        arrary[0] = 1;
+        for (int i = 1; i < n + 1; i++)
+        {
+            for (int j = 1; j <= i; j++)
+            {
+                arrary[i] += arrary[j - 1]*arrary[i - j];
+            }
+        }
+        return arrary[n];
+    }
+}
