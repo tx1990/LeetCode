@@ -1,0 +1,35 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     public int val;
+ *     public TreeNode left;
+ *     public TreeNode right;
+ *     public TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public bool IsValidBST(TreeNode root) {
+        var stack = new Stack<TreeNode>();
+        var last = long.MinValue;
+        while (root != null || stack.Count > 0)
+        {
+            while (root != null)
+            {
+                stack.Push(root);
+                root = root.left;
+            }
+
+            root = stack.Pop();
+            if (root.val <= last)
+            {
+                return false;
+            }
+            else
+            {
+                last = root.val;
+            }
+            root = root.right;
+        }
+        return true;
+    }
+}
